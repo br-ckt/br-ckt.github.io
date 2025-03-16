@@ -161,6 +161,10 @@ const getRandomWinner = (teamA, teamB) => {
     return Math.random() < winChance ? lowerSeedTeam : higherSeedTeam;
 };
 
+const isMobileDevice = () => {
+    return window.innerWidth >= 768;
+};
+
 const Brckt = () => {
     const [bracket, setBracket] = useState({
         roundOf64: {...initialTeams},
@@ -346,7 +350,11 @@ const Brckt = () => {
 
         html2canvas(bracketRef.current, {
             backgroundColor: null,
-            scale: 2
+            scale: 2,
+            width: bracketRef.current.scrollWidth,
+            height: bracketRef.current.scrollHeight,
+            x: 0,
+            y: 0
         }).then(canvas => {
             const link = document.createElement('a');
             link.download = 'march-madness-bracket.png';
@@ -379,13 +387,15 @@ const Brckt = () => {
                         generate random bracket
                     </button>
 
-                    <button
-                        onClick={downloadBracket}
-                        className="button"
-                        disabled={!bracket.championship}
-                    >
-                        download bracket
-                    </button>
+                    {isMobileDevice() && (
+                        <button
+                            onClick={downloadBracket}
+                            className="button"
+                            disabled={!bracket.championship}
+                        >
+                            download bracket
+                        </button>
+                    )}
                 </div>
 
                 <div ref={bracketRef} className="bg-white p-6 rounded-lg shadow-lg">
