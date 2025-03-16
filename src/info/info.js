@@ -267,7 +267,7 @@ const Info = () => {
                         onClick={() => setactivetab(tab)}
                         className={`tab-button ${activetab === tab ? 'active' : ''}`}
                     >
-                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                        {tab}
                     </button>
                 ))}
             </div>
