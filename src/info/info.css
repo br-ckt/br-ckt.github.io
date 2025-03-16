@@ -1,0 +1,205 @@
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.blog-container {
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 5rem 5rem;
+    background-color: black;
+    color: white;
+    box-sizing: border-box;
+}
+
+.content-wrapper {
+    max-width: 1024px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.blog-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.blog-title {
+    font-size: 2rem;
+    font-weight: normal;
+    margin-top: 70px;
+    margin-bottom: 0.5rem;
+}
+
+.blog-subtitle {
+    color: #aaaaaa;
+    margin-bottom: 100px;
+}
+
+.tab-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: -3.5rem;
+}
+
+.tab-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #333;
+    color: #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-button:hover {
+    background-color: #444;
+}
+
+.tab-button.active {
+    background-color: #0066cc;
+    color: white;
+}
+
+.blog-main {
+    background-color: #111;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.tab-title {
+    font-size: 2rem;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #555;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.prose {
+    line-height: 1.6;
+}
+
+.prose p {
+    margin-bottom: 1rem;
+}
+
+.prose ol, .prose ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.prose li {
+    margin-bottom: 0.5rem;
+}
+
+.code-block {
+    background-color: #1a1a1a;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.875rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 1.5rem;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #333;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+.data-table th {
+    background-color: #222;
+    font-weight: 600;
+}
+
+.data-table tr:hover {
+    background-color: #222;
+}
+
+.table-caption {
+    font-size: 0.875rem;
+    color: #888;
+    margin-top: 0.5rem;
+}
+
+.visualization-placeholder {
+    background-color: #222;
+    border-radius: 0.5rem;
+    padding: 3rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 16rem;
+}
+
+.placeholder-content {
+    text-align: center;
+}
+
+.placeholder-text {
+    color: #888;
+}
+
+.placeholder-subtext {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.blog-footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #888;
+}
+
+.blog-footer p {
+    margin: 0.25rem 0;
+}
+
+@media (max-width: 768px) {
+    .tab-buttons {
+        justify-content: center;
+    }
+
+    .blog-title {
+        font-size: 1.75rem;
+    }
+
+    .tab-title {
+        font-size: 1.25rem;
+    }
+}
