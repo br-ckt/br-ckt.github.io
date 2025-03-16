@@ -48,6 +48,12 @@
     font-weight: normal;
 }
 
+.text-center-round {
+    text-align: center;
+    font-weight: normal;
+    border-top: 1px solid #555;
+}
+
 .heading {
     font-size: xx-large;
     font-weight: normal;

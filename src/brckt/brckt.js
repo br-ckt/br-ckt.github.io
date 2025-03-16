@@ -402,7 +402,7 @@ const Brckt = () => {
                     <div className="grid grid--cols-1 md:grid-cols-7 gap-1">
                         {/* Round of 64 - First Column */}
                         <div className="grid__col">
-                            <h3 className="text-center">round of 64</h3>
+                            <h3 className="text-center-round">round of 64</h3>
                             <div className="grid grid--cols-4 gap-1">
                                 {regions.map(region => (
                                     <div key={region} className="grid__col">
@@ -445,7 +445,7 @@ const Brckt = () => {
 
                         {/* Round of 32 - Second Column */}
                         <div className="grid__col">
-                            <h3 className="text-center">round of 32</h3>
+                            <h3 className="text-center-round">round of 32</h3>
                             <div className="grid grid--cols-4 gap-1">
                                 {regions.map(region => (
                                     <div key={region} className="grid__col">
@@ -491,7 +491,7 @@ const Brckt = () => {
 
                         {/* Sweet 16 - Third Column */}
                         <div className="grid__col">
-                            <h3 className="text-center">sweet 16</h3>
+                            <h3 className="text-center-round">sweet 16</h3>
                             <div className="grid grid--cols-4 gap-1">
                                 {regions.map(region => (
                                     <div key={region} className="grid__col">
@@ -537,7 +537,7 @@ const Brckt = () => {
 
                         {/* Elite 8 - Fourth Column */}
                         <div className="grid__col">
-                            <h3 className="text-center">elite 8</h3>
+                            <h3 className="text-center-round">elite 8</h3>
                             <div className="grid grid--cols-4 gap-1">
                                 {regions.map(region => (
                                     <div key={region} className="grid__col">
@@ -620,7 +620,7 @@ const Brckt = () => {
 
                         {/* Final Four - Fifth Column */}
                         <div className="grid__col">
-                            <h3 className="text-center">final 4</h3>
+                            <h3 className="text-center-round">final 4</h3>
                             <div className="grid grid--cols-2 gap-2">
                                 <div className="grid__col">
                                     <div className="space-y-6">
@@ -671,7 +671,7 @@ const Brckt = () => {
 
                         {/* Championship - Sixth Column */}
                         <div className="grid__col">
-                            <h3 className="text-center">championship</h3>
+                            <h3 className="text-center-round">championship</h3>
                             <div className="flex-center mt-6 space-y-4">
                                 {bracket.championship && bracket.final4.eastWestWinner && bracket.final4.southMidwestWinner && (
                                     <div className="matchup-container">
