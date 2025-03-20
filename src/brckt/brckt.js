@@ -5,7 +5,7 @@ import './br-ckt.css';
 const initialTeams = {
     east: [
         { seed: 1, name: "Duke", score: null },
-        { seed: 16, name: "American/Mount St. Mary's", score: null },
+        { seed: 16, name: "Mount St. Mary's", score: null },
         { seed: 8, name: "Mississippi St.", score: null },
         { seed: 9, name: "Baylor", score: null },
         { seed: 5, name: "Oregon", score: null },
@@ -41,7 +41,7 @@ const initialTeams = {
     ],
     south: [
         { seed: 1, name: "Auburn", score: null },
-        { seed: 16, name: "Alabama St./St. Francis", score: null },
+        { seed: 16, name: "Alabama St.", score: null },
         { seed: 8, name: "Louisville", score: null },
         { seed: 9, name: "Creighton", score: null },
         { seed: 5, name: "Michigan", score: null },
@@ -49,7 +49,7 @@ const initialTeams = {
         { seed: 4, name: "Texas A&M", score: null },
         { seed: 13, name: "Yale", score: null },
         { seed: 6, name: "Ole Miss", score: null },
-        { seed: 11, name: "San Diego St./North Carolina", score: null },
+        { seed: 11, name: "North Carolina", score: null },
         { seed: 3, name: "Iowa St.", score: null },
         { seed: 14, name: "Lipscomb", score: null },
         { seed: 7, name: "Marquette", score: null },
@@ -187,8 +187,8 @@ const Brckt = () => {
             midwest: Array(2).fill(null)
         },
         final4: {
-            eastWest: Array(1).fill(null),
-            southMidwest: Array(1).fill(null)
+            eastMidwest: Array(1).fill(null),
+            southWest: Array(1).fill(null)
         },
         championship: null
     });
@@ -197,7 +197,6 @@ const Brckt = () => {
     const nameRef = useRef(null);
 
     const generateBracket = () => {
-        // Create a copy of initial bracket
         const newBracket = {
             roundOf64: {...initialTeams},
             roundOf32: {
@@ -219,8 +218,8 @@ const Brckt = () => {
                 midwest: Array(2).fill(null)
             },
             final4: {
-                eastWest: Array(1).fill(null),
-                southMidwest: Array(1).fill(null)
+                eastMidwest: Array(1).fill(null),
+                southWest: Array(1).fill(null)
             },
             championship: null
         };
@@ -277,40 +276,15 @@ const Brckt = () => {
         });
 
         // Final 4
-        // East vs West
+        // East vs Midwest
         const eastChampion = newBracket.elite8.east[0];
-        const westChampion = newBracket.elite8.west[0];
-        if (eastChampion && westChampion) {
+        const midwestChampion = newBracket.elite8.midwest[0];
+        if (eastChampion && midwestChampion) {
             const eastTeam = {
                 seed: eastChampion.seed,
                 name: eastChampion.name,
                 score: null,
                 region: 'east'
-            };
-
-            const westTeam = {
-                seed: westChampion.seed,
-                name: westChampion.name,
-                score: null,
-                region: 'west'
-            };
-
-            newBracket.final4.eastWest[0] = eastTeam;
-            newBracket.final4.eastWest[1] = westTeam;
-
-            const eastWestWinner = getRandomWinner(eastTeam, westTeam);
-            newBracket.final4.eastWestWinner = { ...eastWestWinner };
-        }
-
-        // South vs Midwest
-        const southChampion = newBracket.elite8.south[0];
-        const midwestChampion = newBracket.elite8.midwest[0];
-        if (southChampion && midwestChampion) {
-            const southTeam = {
-                seed: southChampion.seed,
-                name: southChampion.name,
-                score: null,
-                region: 'south'
             };
 
             const midwestTeam = {
@@ -320,17 +294,42 @@ const Brckt = () => {
                 region: 'midwest'
             };
 
-            newBracket.final4.southMidwest[0] = southTeam;
-            newBracket.final4.southMidwest[1] = midwestTeam;
+            newBracket.final4.eastMidwest[0] = eastTeam;
+            newBracket.final4.eastMidwest[1] = midwestTeam;
 
-            const southMidwestWinner = getRandomWinner(southTeam, midwestTeam);
-            newBracket.final4.southMidwestWinner = { ...southMidwestWinner };
+            const eastMidwestWinner = getRandomWinner(eastTeam, midwestTeam);
+            newBracket.final4.eastMidwestWinner = { ...eastMidwestWinner };
+        }
+
+        // South vs West
+        const southChampion = newBracket.elite8.south[0];
+        const westChampion = newBracket.elite8.west[0];
+        if (southChampion && westChampion) {
+            const southTeam = {
+                seed: southChampion.seed,
+                name: southChampion.name,
+                score: null,
+                region: 'south'
+            };
+
+            const westTeam = {
+                seed: westChampion.seed,
+                name: westChampion.name,
+                score: null,
+                region: 'west'
+            };
+
+            newBracket.final4.southWest[0] = southTeam;
+            newBracket.final4.southWest[1] = westTeam;
+
+            const southWestWinner = getRandomWinner(southTeam, westTeam);
+            newBracket.final4.southWestWinner = { ...southWestWinner };
         }
 
         // Championship game
-        if (newBracket.final4.eastWestWinner && newBracket.final4.southMidwestWinner) {
-            const finalist1 = newBracket.final4.eastWestWinner;
-            const finalist2 = newBracket.final4.southMidwestWinner;
+        if (newBracket.final4.eastMidwestWinner && newBracket.final4.southWestWinner) {
+            const finalist1 = newBracket.final4.eastMidwestWinner;
+            const finalist2 = newBracket.final4.southWestWinner;
 
             const champion = getRandomWinner(finalist1, finalist2);
 
@@ -548,46 +547,46 @@ const Brckt = () => {
                                                     const teamB = bracket.elite8[region][idx + 1];
 
                                                     const isWinnerA =
-                                                        (region === 'east' && bracket.final4.eastWest &&
-                                                            bracket.final4.eastWest[0] &&
+                                                        (region === 'east' && bracket.final4.eastMidwest &&
+                                                            bracket.final4.eastMidwest[0] &&
                                                             teamA &&
-                                                            bracket.final4.eastWest[0].name === teamA.name) ||
+                                                            bracket.final4.eastMidwest[0].name === teamA.name) ||
 
-                                                        (region === 'west' && bracket.final4.eastWest &&
-                                                            bracket.final4.eastWest[1] &&
+                                                        (region === 'midwest' && bracket.final4.eastMidwest &&
+                                                            bracket.final4.eastMidwest[1] &&
                                                             teamA &&
-                                                            bracket.final4.eastWest[1].name === teamA.name) ||
+                                                            bracket.final4.eastMidwest[1].name === teamA.name) ||
 
-                                                        (region === 'south' && bracket.final4.southMidwest &&
-                                                            bracket.final4.southMidwest[0] &&
+                                                        (region === 'south' && bracket.final4.southWest &&
+                                                            bracket.final4.southWest[0] &&
                                                             teamA &&
-                                                            bracket.final4.southMidwest[0].name === teamA.name) ||
+                                                            bracket.final4.southWest[0].name === teamA.name) ||
 
-                                                        (region === 'midwest' && bracket.final4.southMidwest &&
-                                                            bracket.final4.southMidwest[1] &&
+                                                        (region === 'west' && bracket.final4.southWest &&
+                                                            bracket.final4.southWest[1] &&
                                                             teamA &&
-                                                            bracket.final4.southMidwest[1].name === teamA.name);
+                                                            bracket.final4.southWest[1].name === teamA.name);
 
                                                     const isWinnerB =
-                                                        (region === 'east' && bracket.final4.eastWest &&
-                                                            bracket.final4.eastWest[0] &&
+                                                        (region === 'east' && bracket.final4.eastMidwest &&
+                                                            bracket.final4.eastMidwest[0] &&
                                                             teamB &&
-                                                            bracket.final4.eastWest[0].name === teamB.name) ||
+                                                            bracket.final4.eastMidwest[0].name === teamB.name) ||
 
-                                                        (region === 'west' && bracket.final4.eastWest &&
-                                                            bracket.final4.eastWest[1] &&
+                                                        (region === 'midwest' && bracket.final4.eastMidwest &&
+                                                            bracket.final4.eastMidwest[1] &&
                                                             teamB &&
-                                                            bracket.final4.eastWest[1].name === teamB.name) ||
+                                                            bracket.final4.eastMidwest[1].name === teamB.name) ||
 
-                                                        (region === 'south' && bracket.final4.southMidwest &&
-                                                            bracket.final4.southMidwest[0] &&
+                                                        (region === 'south' && bracket.final4.southWest &&
+                                                            bracket.final4.southWest[0] &&
                                                             teamB &&
-                                                            bracket.final4.southMidwest[0].name === teamB.name) ||
+                                                            bracket.final4.southWest[0].name === teamB.name) ||
 
-                                                        (region === 'midwest' && bracket.final4.southMidwest &&
-                                                            bracket.final4.southMidwest[1] &&
+                                                        (region === 'west' && bracket.final4.southWest &&
+                                                            bracket.final4.southWest[1] &&
                                                             teamB &&
-                                                            bracket.final4.southMidwest[1].name === teamB.name);
+                                                            bracket.final4.southWest[1].name === teamB.name);
 
                                                     return (
                                                         <div className="matchup-container" key={`${region}-${idx}`}>
@@ -624,19 +623,19 @@ const Brckt = () => {
                             <div className="grid grid--cols-2 gap-2">
                                 <div className="grid__col">
                                     <div className="space-y-6">
-                                        {bracket.final4.eastWest.length > 0 && (
+                                        {bracket.final4.eastMidwest.length > 0 && (
                                             <div className="matchup-container">
-                                                {bracket.final4.eastWest[0] && (
-                                                    <div className={`team-container ${bracket.final4.eastWestWinner && bracket.final4.eastWestWinner.name === bracket.final4.eastWest[0].name ? 'team-container--winner' : ''}`}>
+                                                {bracket.final4.eastMidwest[0] && (
+                                                    <div className={`team-container ${bracket.final4.eastMidwestWinner && bracket.final4.eastMidwestWinner.name === bracket.final4.eastMidwest[0].name ? 'team-container--winner' : ''}`}>
                                                         <div className="text-xs border px-1 py-0.5">
-                                                            ({bracket.final4.eastWest[0].seed}) {bracket.final4.eastWest[0].name} {getScoreText(bracket.final4.eastWest[0])}
+                                                            ({bracket.final4.eastMidwest[0].seed}) {bracket.final4.eastMidwest[0].name} {getScoreText(bracket.final4.eastMidwest[0])}
                                                         </div>
                                                     </div>
                                                 )}
-                                                {bracket.final4.eastWest[1] && (
-                                                    <div className={`team-container ${bracket.final4.eastWestWinner && bracket.final4.eastWestWinner.name === bracket.final4.eastWest[1].name ? 'team-container--winner' : ''}`}>
+                                                {bracket.final4.eastMidwest[1] && (
+                                                    <div className={`team-container ${bracket.final4.eastMidwestWinner && bracket.final4.eastMidwestWinner.name === bracket.final4.eastMidwest[1].name ? 'team-container--winner' : ''}`}>
                                                         <div className="text-xs border px-1 py-0.5">
-                                                            ({bracket.final4.eastWest[1].seed}) {bracket.final4.eastWest[1].name} {getScoreText(bracket.final4.eastWest[1])}
+                                                            ({bracket.final4.eastMidwest[1].seed}) {bracket.final4.eastMidwest[1].name} {getScoreText(bracket.final4.eastMidwest[1])}
                                                         </div>
                                                     </div>
                                                 )}
@@ -646,19 +645,19 @@ const Brckt = () => {
                                 </div>
                                 <div className="grid__col">
                                     <div className="space-y-6">
-                                        {bracket.final4.southMidwest.length > 0 && (
+                                        {bracket.final4.southWest.length > 0 && (
                                             <div className="matchup-container">
-                                                {bracket.final4.southMidwest[0] && (
-                                                    <div className={`team-container ${bracket.final4.southMidwestWinner && bracket.final4.southMidwestWinner.name === bracket.final4.southMidwest[0].name ? 'team-container--winner' : ''}`}>
+                                                {bracket.final4.southWest[0] && (
+                                                    <div className={`team-container ${bracket.final4.southWestWinner && bracket.final4.southWestWinner.name === bracket.final4.southWest[0].name ? 'team-container--winner' : ''}`}>
                                                         <div className="text-xs border px-1 py-0.5">
-                                                            ({bracket.final4.southMidwest[0].seed}) {bracket.final4.southMidwest[0].name} {getScoreText(bracket.final4.southMidwest[0])}
+                                                            ({bracket.final4.southWest[0].seed}) {bracket.final4.southWest[0].name} {getScoreText(bracket.final4.southWest[0])}
                                                         </div>
                                                     </div>
                                                 )}
-                                                {bracket.final4.southMidwest[1] && (
-                                                    <div className={`team-container ${bracket.final4.southMidwestWinner && bracket.final4.southMidwestWinner.name === bracket.final4.southMidwest[1].name ? 'team-container--winner' : ''}`}>
+                                                {bracket.final4.southWest[1] && (
+                                                    <div className={`team-container ${bracket.final4.southWestWinner && bracket.final4.southWestWinner.name === bracket.final4.southWest[1].name ? 'team-container--winner' : ''}`}>
                                                         <div className="text-xs border px-1 py-0.5">
-                                                            ({bracket.final4.southMidwest[1].seed}) {bracket.final4.southMidwest[1].name} {getScoreText(bracket.final4.southMidwest[1])}
+                                                            ({bracket.final4.southWest[1].seed}) {bracket.final4.southWest[1].name} {getScoreText(bracket.final4.southWest[1])}
                                                         </div>
                                                     </div>
                                                 )}
@@ -673,16 +672,16 @@ const Brckt = () => {
                         <div className="grid__col">
                             <h3 className="text-center-round">championship</h3>
                             <div className="flex-center mt-6 space-y-4">
-                                {bracket.championship && bracket.final4.eastWestWinner && bracket.final4.southMidwestWinner && (
+                                {bracket.championship && bracket.final4.eastMidwestWinner && bracket.final4.southWestWinner && (
                                     <div className="matchup-container">
-                                        <div className={`team-container ${bracket.championship.name === bracket.final4.eastWestWinner.name ? 'team-container--winner' : ''}`}>
+                                        <div className={`team-container ${bracket.championship.name === bracket.final4.eastMidwestWinner.name ? 'team-container--winner' : ''}`}>
                                             <div className="text-sm border px-2 py-1">
-                                                ({bracket.final4.eastWestWinner.seed}) {bracket.final4.eastWestWinner.name} {getScoreText(bracket.final4.eastWestWinner)}
+                                                ({bracket.final4.eastMidwestWinner.seed}) {bracket.final4.eastMidwestWinner.name} {getScoreText(bracket.final4.eastMidwestWinner)}
                                             </div>
                                         </div>
-                                        <div className={`team-container ${bracket.championship.name === bracket.final4.southMidwestWinner.name ? 'team-container--winner' : ''}`}>
+                                        <div className={`team-container ${bracket.championship.name === bracket.final4.southWestWinner.name ? 'team-container--winner' : ''}`}>
                                             <div className="text-sm border px-2 py-1">
-                                                ({bracket.final4.southMidwestWinner.seed}) {bracket.final4.southMidwestWinner.name} {getScoreText(bracket.final4.southMidwestWinner)}
+                                                ({bracket.final4.southWestWinner.seed}) {bracket.final4.southWestWinner.name} {getScoreText(bracket.final4.southWestWinner)}
                                             </div>
                                         </div>
                                     </div>
