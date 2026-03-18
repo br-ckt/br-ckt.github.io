@@ -218,8 +218,8 @@ const Brckt = () => {
     return (
         <div className="full">
             <div className="container">
-                <h1 className="heading">March Madness</h1>
-                <p className="heading-sub">bracket generator</p>
+                <h1 className="heading">br-ckt</h1>
+                <p className="heading-sub">march madness bracket generator</p>
 
                 <div className="controls">
                     <button className="animated-button" onClick={generate}>

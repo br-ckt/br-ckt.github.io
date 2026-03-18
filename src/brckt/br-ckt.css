@@ -58,7 +58,7 @@ body {
 
 .heading-sub {
     text-align: center;
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     letter-spacing: 0.35em;
     color: var(--text-muted);
     text-transform: uppercase;
