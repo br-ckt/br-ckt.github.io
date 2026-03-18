@@ -1,61 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Courier+Prime:wght@400;700&display=swap');
+
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    padding: 2rem 2rem;
+    height: 64px;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    transition: color 0.3s ease;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    background-color: #0c0b09;
+    color: #e8e4d9;
+    border-bottom: 1px solid #2a2820;
+    font-family: 'Courier Prime', monospace;
 }
 
-.navbar.dark-background {
-    background-color: #fff;
-    color: #000;
-}
-
+/* keep prop variants consistent */
+.navbar.dark-background,
 .navbar.light-background {
-    background-color: #000;
-    color: #fff;
+    background-color: #0c0b09;
+    color: #e8e4d9;
+    border-bottom-color: #2a2820;
 }
 
-.navbar ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 2rem;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: inherit;
-    transition: opacity 0.3s ease;
-}
-
-.navbar a:hover {
-    opacity: 0.7;
-}
+/* ── Logo ── */
 
 .navbar h1 {
     display: flex;
     align-items: center;
     margin: 0;
-    font-size: 24px;
-    font-weight: normal;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     gap: 5px;
     transition: gap 0.5s ease;
+    cursor: default;
+    user-select: none;
+    color: #e8e4d9;
 }
 
-.navbar h1:hover {
-    gap: 0;
-}
+.navbar h1:hover { gap: 0; }
 
 .navbar .first-name {
     transition: transform 0.5s ease;
+}
+
+/* animated "{" in muted gold */
+.navbar .middle-name {
+    font-family: 'Courier Prime', monospace;
+    font-size: 1.5rem;
+    color: #b8962e;
+    opacity: 0;
+    transform: translateX(-120px);
+    transition: opacity 1s ease, transform 0.5s ease;
+}
+
+.navbar h1:hover .middle-name {
+    opacity: 1;
+    transform: translateX(0px);
 }
 
 .navbar .last-name {
@@ -70,13 +75,59 @@
     transition: opacity 0.5s ease, transform 0.7s ease;
 }
 
-.navbar .middle-name {
-    opacity: 0;
-    transform: translateX(-120px);
-    transition: opacity 1s ease, transform 0.5s ease;
+/* ── Nav links ── */
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
 }
 
-.navbar h1:hover .middle-name {
-    opacity: 1;
-    transform: translateX(0px);
+.navbar a {
+    text-decoration: none;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #6b6555;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #b8962e;
+    transition: width 0.25s ease;
+}
+
+.navbar a:hover {
+    color: #d4aa3f;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+.navbar a.active {
+    color: #e8e4d9;
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0 1rem;
+        height: 56px;
+    }
+
+    .navbar h1 { font-size: 1.2rem; }
+    .navbar ul { gap: 1.25rem; }
+    .navbar a  { font-size: 0.62rem; }
 }
