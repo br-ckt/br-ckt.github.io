@@ -11,3 +11,6 @@
 ## info page
 
 the **info** page provides a detailed explanation of how the bracket generation works. it includes a blog post that dives into the methodology behind using historical data to predict matchups and create tournament brackets. you can learn more about the data sources and how they're used to create more accurate predictions.
+
+## demo
+![br-ckt demo](https://github.com/joshamstutz/br-ckt.github.io/blob/master/br-ckt.png?raw=true)
